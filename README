@@ -1,0 +1,24 @@
+Not Another PDF Scanner v2
+
+Original Copyright © 2009 Pavel Sorejs, http://sourceforge.net/projects/naps/
+
+Updated by Michael Adams, http://unquietwiki.com, 2012
+
+=== Changelog from original version ===
+
+10-2012
+* Uses .NET 4.5 instead of .NET 3.0; might not work on Windows XP now, but does work on Windows 7 x64 (binaries are still 32-bit).
+* PDF output from PDF Sharp is poorly optimized: switched to LPGL-licensed "PDF Clown"; http://www.stefanochizzolini.it/en/projects/clown/index.html
+* Randomized filenames: was not available before.
+* Correct file types for saved images; also defaulted to JPEG (.NET PNG output is non-optimized).
+
+=== TODO ===
+
+10-2012
+* Make sure my own users are happy with this build.
+* Contact original author + make sure he can integrate the changes into his build.
+* Address any outstanding bugs if the original has been abandoned.
+
+=== Licensing ===
+
+The original was licensed as GPL version 2, and thus this modified version as well.
