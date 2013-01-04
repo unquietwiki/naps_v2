@@ -14,6 +14,28 @@ namespace NAPS
 {
     class CImageHelper
     {
+    	
+    	//From http://www.pinvoke.net/default.aspx/gdi32/bitblt.html
+    	//Treat as UINT
+    	public enum TernaryRasterOperations {
+    	SRCCOPY     = 0x00CC0020,
+    	SRCPAINT    = 0x00EE0086,
+    	SRCAND      = 0x008800C6,
+    	SRCINVERT   = 0x00660046,
+    	SRCERASE    = 0x00440328,
+    	NOTSRCCOPY  = 0x00330008,
+    	NOTSRCERASE = 0x001100A6,
+    	MERGECOPY   = 0x00C000CA,
+    	MERGEPAINT  = 0x00BB0226,
+    	PATCOPY     = 0x00F00021,
+    	PATPAINT    = 0x00FB0A09,
+    	PATINVERT   = 0x005A0049,
+    	DSTINVERT   = 0x00550009,
+    	BLACKNESS   = 0x00000042,
+    	WHITENESS   = 0x00FF0062,
+    	CAPTUREBLT  = 0x40000000 //only if WinVer >= 5.0.0 (see wingdi.h)
+    	}    	
+    	
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
@@ -30,11 +52,10 @@ namespace NAPS
         public static extern int DeleteDC(IntPtr hdc);
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);
+        public static extern IntPtr SelectObject(IntPtr hdc, IntPtr hgdiobj);                
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern int BitBlt(IntPtr hdcDst, int xDst, int yDst, int w, int h, IntPtr hdcSrc, int xSrc, int ySrc, int rop);
-        static int SRCCOPY = 0x00CC0020;
+        public static extern int BitBlt(IntPtr hdcDst, int xDst, int yDst, int w, int h, IntPtr hdcSrc, int xSrc, int ySrc, uint rop);        
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         static extern IntPtr CreateDIBSection(IntPtr hdc, ref BITMAPINFO bmi, uint Usage, out IntPtr bits, IntPtr hSection, uint dwOffset);
@@ -53,9 +74,10 @@ namespace NAPS
             public uint[] cols;
         }
 
-        static uint MAKERGB(int r, int g, int b)
+        //Modified to use ushort vs uint (its a 16-bit function)
+        static ushort MAKERGB(ushort r, ushort g, ushort b)
         {
-            return ((uint)(b & 255)) | ((uint)((r & 255) << 8)) | ((uint)((g & 255) << 16));
+        	return (ushort)( (b & 255) | ((r & 255) << 8) | ((g & 255) << 16));
         }
 
         /// <summary>
@@ -101,7 +123,7 @@ namespace NAPS
             bmi.biClrImportant = ncols;
             bmi.cols = new uint[256]; // The structure always has fixed size 256, even if we end up using fewer colours
             if (bpp == 1) { bmi.cols[0] = MAKERGB(0, 0, 0); bmi.cols[1] = MAKERGB(255, 255, 255); }
-            else { for (int i = 0; i < ncols; i++) bmi.cols[i] = MAKERGB(i, i, i); }
+            else { for (ushort i = 0; i < ncols; i++) bmi.cols[i] = MAKERGB(i, i, i); }
             // For 8bpp we've created an palette with just greyscale colours.
             // You can set up any palette you want here. Here are some possibilities:
             // greyscale: for (int i=0; i<256; i++) bmi.cols[i]=MAKERGB(i,i,i);
@@ -121,7 +143,7 @@ namespace NAPS
             // and create a DC for the monochrome hbitmap
             IntPtr hdc0 = CreateCompatibleDC(sdc); SelectObject(hdc0, hbm0);
             // Now we can do the BitBlt:
-            BitBlt(hdc0, 0, 0, w, h, hdc, 0, 0, SRCCOPY);
+            BitBlt(hdc0, 0, 0, w, h, hdc, 0, 0, (uint)TernaryRasterOperations.SRCCOPY);
             // Step (4): convert this monochrome hbitmap back into a Bitmap:
             System.Drawing.Bitmap b0 = System.Drawing.Bitmap.FromHbitmap(hbm0);
             //

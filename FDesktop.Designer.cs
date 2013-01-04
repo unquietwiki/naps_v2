@@ -41,6 +41,7 @@ namespace NAPS
         	this.tsMoveDown = new System.Windows.Forms.ToolStripButton();
         	this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
         	this.tsRotateLeft = new System.Windows.Forms.ToolStripButton();
+        	this.tsRotateFlip = new System.Windows.Forms.ToolStripButton();
         	this.tsRotateRight = new System.Windows.Forms.ToolStripButton();
         	this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
         	this.tsProfiles = new System.Windows.Forms.ToolStripButton();
@@ -70,6 +71,7 @@ namespace NAPS
         	        	        	this.tsMoveDown,
         	        	        	this.toolStripSeparator3,
         	        	        	this.tsRotateLeft,
+        	        	        	this.tsRotateFlip,
         	        	        	this.tsRotateRight,
         	        	        	this.toolStripSeparator2,
         	        	        	this.tsProfiles,
@@ -79,7 +81,7 @@ namespace NAPS
         	this.tStrip.Location = new System.Drawing.Point(3, 0);
         	this.tStrip.Name = "tStrip";
         	this.tStrip.ShowItemToolTips = false;
-        	this.tStrip.Size = new System.Drawing.Size(918, 54);
+        	this.tStrip.Size = new System.Drawing.Size(985, 54);
         	this.tStrip.TabIndex = 12;
         	this.tStrip.Text = "Main toolbar";
         	// 
@@ -175,6 +177,17 @@ namespace NAPS
         	this.tsRotateLeft.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
         	this.tsRotateLeft.Click += new System.EventHandler(this.tsRotateLeft_Click);
         	// 
+        	// tsRotateFlip
+        	// 
+        	this.tsRotateFlip.Image = ((System.Drawing.Image)(resources.GetObject("tsRotateFlip.Image")));
+        	this.tsRotateFlip.ImageTransparentColor = System.Drawing.Color.Magenta;
+        	this.tsRotateFlip.Name = "tsRotateFlip";
+        	this.tsRotateFlip.Size = new System.Drawing.Size(36, 51);
+        	this.tsRotateFlip.Text = "Flip";
+        	this.tsRotateFlip.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+        	this.tsRotateFlip.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+        	this.tsRotateFlip.Click += new System.EventHandler(this.TsRotateFlipClick);
+        	// 
         	// tsRotateRight
         	// 
         	this.tsRotateRight.Image = ((System.Drawing.Image)(resources.GetObject("tsRotateRight.Image")));
@@ -235,11 +248,11 @@ namespace NAPS
         	// toolStripContainer1.ContentPanel
         	// 
         	this.toolStripContainer1.ContentPanel.Controls.Add(this.thumbnailList1);
-        	this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1123, 465);
+        	this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1187, 465);
         	this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
         	this.toolStripContainer1.Name = "toolStripContainer1";
-        	this.toolStripContainer1.Size = new System.Drawing.Size(1123, 519);
+        	this.toolStripContainer1.Size = new System.Drawing.Size(1187, 519);
         	this.toolStripContainer1.TabIndex = 13;
         	this.toolStripContainer1.Text = "toolStripContainer1";
         	// 
@@ -252,7 +265,7 @@ namespace NAPS
         	this.thumbnailList1.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.thumbnailList1.Location = new System.Drawing.Point(0, 0);
         	this.thumbnailList1.Name = "thumbnailList1";
-        	this.thumbnailList1.Size = new System.Drawing.Size(1123, 465);
+        	this.thumbnailList1.Size = new System.Drawing.Size(1187, 465);
         	this.thumbnailList1.TabIndex = 7;
         	this.thumbnailList1.UseCompatibleStateImageBehavior = false;
         	this.thumbnailList1.ItemActivate += new System.EventHandler(this.thumbnailList1_ItemActivate);
@@ -262,7 +275,7 @@ namespace NAPS
         	// 
         	this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         	this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        	this.ClientSize = new System.Drawing.Size(1123, 519);
+        	this.ClientSize = new System.Drawing.Size(1187, 519);
         	this.Controls.Add(this.toolStripContainer1);
         	this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
         	this.Name = "FDesktop";
@@ -277,6 +290,7 @@ namespace NAPS
         	this.toolStripContainer1.PerformLayout();
         	this.ResumeLayout(false);
         }
+        private System.Windows.Forms.ToolStripButton tsRotateFlip;
 
         #endregion
 
@@ -297,7 +311,7 @@ namespace NAPS
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private ThumbnailList thumbnailList1;
+        private NAPS.ThumbnailList thumbnailList1;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
     }
 }

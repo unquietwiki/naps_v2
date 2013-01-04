@@ -180,11 +180,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>ILProfileIcons.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ThumbnailList.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ThumbnailList.cs</DependentUpon>
@@ -201,12 +196,23 @@
       <DependentUpon>UTiffViewerCtl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="app.config" />
+    <None Include="gfx\3d_glasses.png" />
+    <None Include="gfx\arrow_down.png" />
+    <None Include="gfx\arrow_up.png" />
+    <None Include="gfx\blueprints.ico" />
+    <None Include="gfx\blueprints.png" />
+    <None Include="gfx\email_attach.png" />
+    <None Include="gfx\page_white_acrobat.png" />
+    <None Include="gfx\page_white_picture.png" />
+    <None Include="gfx\resize_picture.png" />
+    <None Include="gfx\routing_around.png" />
+    <None Include="gfx\routing_turn_left.png" />
+    <None Include="gfx\routing_turn_right.png" />
+    <None Include="gfx\stop.png" />
+    <None Include="gfx\zoom_fit.png" />
+    <None Include="gfx\zoom_in.png" />
+    <None Include="gfx\zoom_out.png" />
     <None Include="lib\PDFClown.dll" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -233,27 +239,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="gfx\acroread.png" />
-    <Content Include="gfx\down.png" />
-    <Content Include="gfx\exit.png" />
-    <Content Include="gfx\icons.ico" />
-    <Content Include="gfx\icons.png" />
-    <Content Include="gfx\images.png" />
-    <Content Include="gfx\info.png" />
-    <Content Include="gfx\kbackgammon_engine.ico" />
     <Content Include="gfx\pdf_email.png" />
-    <Content Include="gfx\rleft.png" />
-    <Content Include="gfx\rright.png" />
     <Content Include="gfx\scanner-app.ico" />
     <Content Include="gfx\scanner-large.png" />
     <Content Include="gfx\scanner.ico" />
     <Content Include="gfx\scanner.png" />
-    <Content Include="gfx\up.png" />
-    <Content Include="gfx\viewmag+.png" />
-    <Content Include="gfx\viewmag-.png" />
-    <Content Include="gfx\window_fullscreen.png" />
     <Content Include="lib\Interop.WIA.dll" />
-    <Content Include="lib\PdfSharp.dll" />
     <Content Include="scanner-app.ico" />
     <Content Include="Setup\gpl.txt" />
     <Content Include="Setup\setup.iss" />

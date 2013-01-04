@@ -191,26 +191,44 @@ namespace NAPS
 
         private void rotateLeft()
         {
-            if (thumbnailList1.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem it in thumbnailList1.SelectedItems)
-                { 
-                    images[(int)it.Tag].RotateFlip(RotateFlipType.Rotate270FlipNone);
-                }
-                updateView();
-            }
+        	rotateItem(RotateFlipType.Rotate270FlipNone);
         }
 
         private void rotateRight()
         {
-            if (thumbnailList1.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem it in thumbnailList1.SelectedItems)
-                {
-                    images[(int)it.Tag].RotateFlip(RotateFlipType.Rotate90FlipNone);
-                }
-                updateView();
-            }
+        	rotateItem(RotateFlipType.Rotate90FlipNone);
+        }
+        
+        private void rotateFlip()
+        {
+        	rotateItem(RotateFlipType.RotateNoneFlipXY);
+        }
+        
+        //Master function for image/document rotation
+        //
+        //Check to see if there's images, then allow flip. If images, but none pick, flip all of them.
+        //
+        private void rotateItem(RotateFlipType ft)
+        {
+        	if (thumbnailList1.Items.Count > 0)
+        	{
+            	if (thumbnailList1.SelectedItems.Count > 0)
+            	{
+                	foreach (ListViewItem it in thumbnailList1.SelectedItems)
+                	{ 
+                	    images[(int)it.Tag].RotateFlip(ft);
+                	}
+                	updateView();
+            	}
+            	else
+            	{
+            		foreach (ListViewItem it in thumbnailList1.Items)
+            		{
+            			images[(int)it.Tag].RotateFlip(ft);
+            		}
+            		updateView();
+            	}
+        	}        	
         }
 
         private void thumbnailList1_KeyDown(object sender, KeyEventArgs e)
@@ -432,5 +450,10 @@ namespace NAPS
 			}
         }
         
+        
+        void TsRotateFlipClick(object sender, EventArgs e)
+        {
+        	rotateFlip();
+        }
     }
 }

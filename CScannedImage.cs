@@ -16,8 +16,8 @@ namespace NAPS
         private Bitmap baseImage;
         private Bitmap thumbnail;
 
-        private int thumbnailWidth = 128;
-        private int thumbnailHeight = 128;
+        private int thumbnailWidth = 196;
+        private int thumbnailHeight = 196;
         private CScanSettings.BitDepth bitDepth;
 
         public CScanSettings.BitDepth BitDepth
@@ -40,29 +40,17 @@ namespace NAPS
             set { baseImage = value; thumbnail = null; }
         }
 
-        private Bitmap resizeBitmap(Bitmap b, int nWidth, int nHeight)
-        {
-            Bitmap result = new Bitmap(nWidth, nHeight);
-            Graphics g = Graphics.FromImage((Image)result);
-
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;            
-            if (b.Width > b.Height)
+        //Modified from http://www.deltasblog.co.uk/code-snippets/c-resizing-a-bitmap-image/
+        private Bitmap ResizeBitmap(Bitmap sourceBMP, int width, int height )
+		{
+            Bitmap result = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(result))
             {
-                double nheight = (double)b.Height * ((double)nWidth / (double)b.Width);
-                double ntop = ((double)nHeight - nheight) / 2;
-                g.DrawImage(b, 0, (int)ntop, nWidth, (int)nheight);
+                g.DrawImage(sourceBMP, 0, 0, width, height);
+            	g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;            	
             }
-            else
-            {
-                double nwidth = (double)b.Width * ((double)nHeight / (double)b.Height);
-                double nleft = ((double)nWidth - nwidth) / 2;
-                g.DrawImage(b, (int)nleft, 0, (int)nwidth, nHeight);
-            }
-
-            g.Dispose();
-
             return result;
-        }
+ 		}        
 
         public CScannedImage()
         {            
@@ -71,7 +59,7 @@ namespace NAPS
         public CScannedImage(Bitmap img, CScanSettings.BitDepth BitDepth)
         {
             baseImage = (Bitmap)img.Clone();
-            thumbnail = resizeBitmap(img, thumbnailWidth, thumbnailHeight);
+            thumbnail = ResizeBitmap(img, thumbnailWidth, thumbnailHeight);
 
             if (bitDepth == CScanSettings.BitDepth.BLACKWHITE)
             {
@@ -88,7 +76,7 @@ namespace NAPS
         internal void RotateFlip(RotateFlipType rotateFlipType)
         {
             baseImage.RotateFlip(rotateFlipType);
-            thumbnail = resizeBitmap(baseImage, thumbnailWidth, thumbnailHeight);
+            thumbnail = ResizeBitmap(baseImage, thumbnailWidth, thumbnailHeight);
         }
     }
 }
